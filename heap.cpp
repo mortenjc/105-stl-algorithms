@@ -2,10 +2,7 @@
 #include <algorithm>
 #include <vector>
 
-
-
 void printvec(std::vector<int> v) {
-
   for (auto & elt : v) {
     printf("%d ", elt);
   }
@@ -29,6 +26,28 @@ void makeheap(std::vector<int> v) {
   printvec(v);
 }
 
+// Get sorted array from max heap
+void popheap(std::vector<int> v) {
+  std::make_heap(v.begin(), v.end());
+  int len = v.size();
+  std::vector<int> w;
+  for (int i = 0; i < len; i++) {
+    std::pop_heap(v.begin(), v.end());
+    w.push_back(v.back());
+    v.pop_back();
+    printvec(v);
+  }
+  printvec(w);
+}
+
+
+// Create heap by initialisation
+void sortheap(std::vector<int> v) {
+  std::make_heap(v.begin(), v.end());
+  std::sort_heap(v.begin(), v.end());
+  printvec(v);
+}
+
 
 int main(int  argc, char * argv[]) {
   printf("Heap construction and manipulation from \n");
@@ -36,6 +55,13 @@ int main(int  argc, char * argv[]) {
   printvec(v);
   printf("push_heap\n");
   pushheap(v);
+
   printf("make_heap\n");
   makeheap(v);
+
+  printf("pop_heap\n");
+  popheap(v);
+
+  printf("sort_heap\n");
+  sortheap(v);
 }

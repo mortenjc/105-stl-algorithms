@@ -6,10 +6,12 @@ import graphviz
 
 class Draw:
 
-    def __init__(self, filename, vector, names=[]):
+    def __init__(self, filename, vector, names=[], bold=[]):
         self.filename = filename
         self.vector = vector
         self.names = names
+        self.bold = bold
+
         if names == []:
             self.names = [str(val) for val in vector]
         assert len(self.names) == len(self.vector)
@@ -43,7 +45,15 @@ class Draw:
         for i, _ in enumerate(self.vector):
             n = i + 1
             name = self.get_name(i)
-            self.g.node(name)
+
+            if int(name) in self.bold:
+                self.g.node(name,  margin='0', fontsize='24',
+                            color='grey', shape='circle', width='0.5',
+                            style='filled', line='black') #, fontcolor='white'
+            else:
+                self.g.node(name, margin='0', fontsize='24',
+                         color='black', shape='circle', width='0.5')
+
 
         for i, v in enumerate(self.vector):
             n = i + 1
@@ -64,31 +74,36 @@ class Draw:
 if __name__ == '__main__':
 
     initialise = [
-        [3, 2, 4, 1, 5, 9],
-        [3, 2, 9, 1, 5, 4],
-        [9, 2, 3, 1, 5, 4],
-        [9, 2, 4, 1, 5, 3],
-        [9, 5, 4, 1, 2, 3]
+        [[3, 2, 4, 1, 5, 9], [5, 4, 9]],
+        [[3, 2, 9, 1, 5, 4], [5, 9]],
+        [[9, 2, 3, 1, 5, 4], [5, 4]],
+        [[9, 2, 4, 1, 5, 3], [5]],
+        [[9, 5, 4, 1, 2, 3], []]
     ]
 
-    push = [
-        [3],
-        [3, 2],
-        [3, 2, 4],
-        [4, 2, 3],
-        [4, 2, 3, 1],
-        [4, 2, 3, 1, 5],
-        [4, 5, 3, 1, 2],
-        [5, 4, 3, 1, 2],
-        [5, 4, 3, 1, 2, 9],
-        [5, 4, 9, 1, 2, 3],
-        [9, 4, 5, 1, 2, 3]
+    construct = [
+        [[3], []],
+        [[3, 2], []],
+        [[3, 2, 4], [4]],
+        [[4, 2, 3], []],
+        [[4, 2, 3, 1], []],
+        [[4, 2, 3, 1, 5], [5]],
+        [[4, 5, 3, 1, 2], [5]],
+        [[5, 4, 3, 1, 2], []],
+        [[5, 4, 3, 1, 2, 9], [9]],
+        [[5, 4, 9, 1, 2, 3], [9]],
+        [[9, 4, 5, 1, 2, 3], []]
     ]
 
-    for i, vec in enumerate(initialise):
-        d = Draw(f"heap_init{i+1}", vec)
+
+    for i, data in enumerate(initialise):
+        vec = data[0]
+        bold = data[1]
+        d = Draw(f"heap_init{i+1}", vec, [], bold)
         d.draw()
 
-    for i, vec in enumerate(push):
-        d = Draw(f"heap_push{i+1:02}", vec)
+    for i, data in enumerate(construct):
+        vec = data[0]
+        bold = data[1]
+        d = Draw(f"heap_push{i+1}", vec, [], bold)
         d.draw()
