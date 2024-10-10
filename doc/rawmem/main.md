@@ -1,0 +1,20 @@
+# Raw memory
+uninitialized_fill
+uninitialized_copy
+uninitialized_move
+destroy
+uninitialized_default_construct
+uninitialized_value_construct
+
+**Unlocked rune: *_N**
+
+copy_n
+fill_n
+generate_n
+search_n
+for_each_n
+uninitialized_fill_n
+uninitialized_copy_n
+uninitialized_move_n
+uninitialized_default_construct_n
+uninitialized_value_construct_n
