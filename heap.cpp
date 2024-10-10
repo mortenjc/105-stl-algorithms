@@ -1,13 +1,6 @@
 
 #include <algorithm>
-#include <vector>
-
-void printvec(std::vector<int> v) {
-  for (auto & elt : v) {
-    printf("%d ", elt);
-  }
-  printf("\n");
-}
+#include <utils.h>
 
 
 // Create heap by construction, one element at a time
@@ -52,8 +45,7 @@ void sortheap(std::vector<int> v) {
 int main(int  argc, char * argv[]) {
   printf("Heap construction and manipulation from \n");
   std::vector<int> v{3, 2, 4, 1, 5, 9};
-  printvec(v);
-  printf("push_heap\n");
+  printvec("push_heap\n", v);
   pushheap(v);
 
   printf("make_heap\n");
